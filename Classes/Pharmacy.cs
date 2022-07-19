@@ -7,14 +7,16 @@ namespace Classes
     ///</summary>
     class Pharmacy{
         //гуиды не меняем
-        Guid id {get;}
+        public Guid id {get;}
         //изменяемые параметры аптеки
-        string Name {get;set;}
-        string Address {get;set;}
-        string Phone {get;set;}
+        public string Name {get;set;}
+        public string Address {get;set;}
+        //аптека может работать без номера, обработаем null (можно и nullable)
+        string _phone;
+        public string Phone {get{return _phone;} set{if (value == null) _phone = ""; }}
 
         //конструктор
-        public Pharmacy(string name, string address, string phone){
+        public Pharmacy(string name, string address, string phone = ""){
             id = new Guid();
             Name = name;
             Address = address;

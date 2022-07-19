@@ -7,9 +7,9 @@ namespace Classes
     ///</summary>
     class Product{
         //гуиды не меняем
-        Guid id {get;}
+        public Guid id {get;}
         //имя может измениться
-        string Name {get; set;}
+        public string Name {get; set;}
 
         //конструктор
         public Product(string name){

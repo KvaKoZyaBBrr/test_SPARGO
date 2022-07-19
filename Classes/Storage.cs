@@ -7,11 +7,11 @@ namespace Classes
     ///</summary>
     class Storage{
         //гуиды не меняем
-        Guid id{get;}    
+        public Guid id{get;}    
         // склад привязываем к аптеке и не меняем
-        Guid Pharmacy_id{get;}
+        public Guid Pharmacy_id{get;}
         //имя менять можем
-        string Name{get;set;}
+        public string Name{get;set;}
 
         //конструктор
         public Storage(Guid pharmacy_id, string name){
