@@ -12,7 +12,7 @@ namespace Classes
         public Guid Product_id{get;}
         public Guid Storage_id{get;}
         //количество в партии ограничиваем (можно и ulong, но надо писать обработчик ошибки)
-        int _count;
+        int _count=0;
         public int Count {get{return _count; } set{if (value<0) value = 0;}}
         
         //конструктор
