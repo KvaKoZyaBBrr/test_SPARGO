@@ -15,7 +15,7 @@ namespace Classes
 
         //конструктор
         public Storage(Guid pharmacy_id, string name){
-            id = new Guid();
+            id = Guid.NewGuid();
             Pharmacy_id = pharmacy_id;
             Name = name;        
         }

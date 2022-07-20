@@ -17,7 +17,7 @@ namespace Classes
 
         //конструктор
         public Pharmacy(string name, string address, string phone = ""){
-            id = new Guid();
+            id = Guid.NewGuid();
             Name = name;
             Address = address;
             Phone = phone;

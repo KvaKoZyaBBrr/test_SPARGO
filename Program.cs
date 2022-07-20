@@ -1,5 +1,6 @@
 ﻿using System;
 using Classes;
+using Service;
 
 namespace test
 {
@@ -40,8 +41,17 @@ namespace test
 
         static void makeAction(int command){
             switch(command){
-                case(1):{Console.WriteLine("Command 1. TODO"); break;}
-                case(2):{Console.WriteLine("Command 2. TODO"); break;}
+                case(1):{new Product(Console.ReadLine()).save(); break;}
+                case(2):{
+                        List<Product> ps = SQLAdapter.getInstance().query<Product>("SELECT * FROM Products"); 
+                        for(int i = 0; i< ps.Count; i++) 
+                            Console.WriteLine($"{i}. {ps[i].ToString()}"); 
+                        string commandString = Console.ReadLine(); 
+                        int target = 0; 
+                        if (int.TryParse(commandString, out target) && target >= 0 && target < ps.Count) 
+                         ps[target].delete();  
+                        break;
+                    }
                 case(3):{Console.WriteLine("Command 3. TODO"); break;}
                 case(4):{Console.WriteLine("Command 4. TODO"); break;}
                 case(5):{Console.WriteLine("Command 5. TODO"); break;}

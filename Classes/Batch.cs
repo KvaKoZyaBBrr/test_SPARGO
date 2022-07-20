@@ -17,7 +17,7 @@ namespace Classes
         
         //конструктор
         public Batch(Guid product_id, Guid storage_id, int count){
-            id = new Guid();
+            id = Guid.NewGuid();
             Product_id = product_id;
             Storage_id = storage_id;
             Count = count;
