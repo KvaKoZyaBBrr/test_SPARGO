@@ -1,6 +1,5 @@
 ﻿using System;
-using Classes;
-using Service;
+using Classes.ObjectWorker;
 
 namespace test
 {
@@ -38,23 +37,38 @@ namespace test
             Console.WriteLine("9. Get All Products by Pharmacy");
             Console.WriteLine("0. Exit");
         }
+        
 
         static void makeAction(int command){
-            switch(command){
-                case(1):{new Product(Console.ReadLine()).save(); break;}
-                case(2):{
-                        List<Product> ps = SQLAdapter.getInstance().query<Product>("SELECT * FROM Products"); 
-                        for(int i = 0; i< ps.Count; i++) 
-                            Console.WriteLine($"{i}. {ps[i].ToString()}"); 
-                        string commandString = Console.ReadLine(); 
-                        int target = 0; 
-                        if (int.TryParse(commandString, out target) && target >= 0 && target < ps.Count) 
-                         ps[target].delete();  
+
+            IObjectWorker productFactory = new ProductWorker();
+
+            IObjectWorker pharmacyFactory = new PharmacyWorker();
+
+            //IObjectWorker storageFactory = new StorageFactory();
+
+            //IObjectWorker batchFactory = new BatchFactory();
+
+            switch (command){
+                case(1):{
+                        productFactory.CreateNew();
                         break;
                     }
-                case(3):{Console.WriteLine("Command 3. TODO"); break;}
-                case(4):{Console.WriteLine("Command 4. TODO"); break;}
-                case(5):{Console.WriteLine("Command 5. TODO"); break;}
+                case(2):{
+                        productFactory.DeleteOne();
+                        break;
+                    }
+                case(3):
+                    {
+                        pharmacyFactory.CreateNew();
+                        break;
+                    }
+                case (4):
+                    {
+                        pharmacyFactory.DeleteOne();
+                        break;
+                    }
+                case (5):{Console.WriteLine("Command 5. TODO"); break;}
                 case(6):{Console.WriteLine("Command 6. TODO"); break;}
                 case(7):{Console.WriteLine("Command 7. TODO"); break;}
                 case(8):{Console.WriteLine("Command 8. TODO"); break;}
