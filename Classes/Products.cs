@@ -14,9 +14,9 @@ namespace Classes
     /// -синхронизаторы с с бд по таймеру/циклу/событию
     /// есть DRY по всем спискам. TODO DRY
     /// </summary>
-    class Products
+    class Products:BaseList<Product>
     {
-        List<Product> products = new List<Product>();
+        
         // синглтон, так как не нужно плодить списки
         static Products instance;
 
@@ -28,28 +28,27 @@ namespace Classes
         public static Products getInstance(){
             if(instance==null)
                 instance = new Products();
+            updateList();
             return instance;
         }
 
-        public List<Product> getList(){
-            return products;
-        }
 
-        public void addNewInstance(Product product) {
-            string query = $"INSERT INTO [dbo].[Products] ([id],[Name]) VALUES ('{product.id}', '{product.Name}')";
+        public void addNewInstance(Product newInstance) {
+            string query = $"INSERT INTO [dbo].[Products] ([id],[Name]) VALUES ('{newInstance.id}', '{newInstance.Name}')";
             SQLAdapter.getInstance().command(query);
             updateList();
         }
 
         public void deleteInstance(int index) {
-            string query = $"DELETE FROM [dbo].[Products] WHERE [id] = '{products[index].id}'";
+            string query = $"DELETE FROM [dbo].[Products] WHERE [id] = '{list[index].id}'";
             SQLAdapter.getInstance().command(query);
             updateList();
         }
 
-        public void updateList(){
-            products = SQLAdapter.getInstance().query<Product>("SELECT * FROM Products");
+        private static void updateList(){
+            list = SQLAdapter.getInstance().query<Product>("SELECT * FROM Products");
         }
+
     }
 
     ///<summary>

@@ -28,30 +28,27 @@ namespace Classes.ObjectWorker
         public void DeleteOne()
         {
             //получаем список и проверяем на наличие
-            List<Product> ps = Products.getInstance().getList();
-            if (ps.Count() == 0)
+            int productCount = Products.getInstance().getList().Count;
+            if (productCount == 0)
             {
                 Console.WriteLine("No products to delete");
+                return;
+            }
+            //выводим список инстансов и выбираем нужный
+            Console.WriteLine("Exists products:");
+            Products.getInstance().printList();
+            Console.WriteLine("Choose index removable product");
+            string commandString = Console.ReadLine();
+            int target = 0;
+            if (int.TryParse(commandString, out target) && target >= 0 && target < productCount)
+            {
+                //удяаляем выбранный
+                Products.getInstance().deleteInstance(target);
+                Console.WriteLine($"Product #{target} was deleted");
             }
             else
             {
-                //выводим список инстансов и выбираем нужный
-                Console.WriteLine("Exists products:");
-                for (int i = 0; i < ps.Count; i++)
-                    Console.WriteLine($"{i}. {ps[i].ToString()}");
-                Console.WriteLine("Choose index removable product");
-                string commandString = Console.ReadLine();
-                int target = 0;
-                if (int.TryParse(commandString, out target) && target >= 0 && target < ps.Count)
-                {
-                    //удяаляем выбранный
-                    Products.getInstance().deleteInstance(target);
-                    Console.WriteLine($"Product {ps[target].Name} was deleted");
-                }
-                else
-                {
-                    Console.WriteLine("Err to del");
-                }
+                Console.WriteLine("Err to del");
             }
         }
     }

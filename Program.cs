@@ -42,12 +42,9 @@ namespace test
         static void makeAction(int command){
 
             IObjectWorker productFactory = new ProductWorker();
-
             IObjectWorker pharmacyFactory = new PharmacyWorker();
-
-            //IObjectWorker storageFactory = new StorageFactory();
-
-            //IObjectWorker batchFactory = new BatchFactory();
+            IObjectWorker storageFactory = new StorageWorker();
+            IObjectWorker batchFactory = new BatchWorker();
 
             switch (command){
                 case(1):{
@@ -68,11 +65,27 @@ namespace test
                         pharmacyFactory.DeleteOne();
                         break;
                     }
-                case (5):{Console.WriteLine("Command 5. TODO"); break;}
-                case(6):{Console.WriteLine("Command 6. TODO"); break;}
-                case(7):{Console.WriteLine("Command 7. TODO"); break;}
-                case(8):{Console.WriteLine("Command 8. TODO"); break;}
-                case(9):{Console.WriteLine("Command 9. TODO"); break;}
+                case (5):
+                    {
+                        storageFactory.CreateNew();
+                        break;
+                    }
+                case (6):
+                    {
+                        storageFactory.DeleteOne();
+                        break;
+                    }
+                case (7):
+                    {
+                        batchFactory.CreateNew();
+                        break;
+                    }
+                case (8):
+                    {
+                        batchFactory.DeleteOne();
+                        break;
+                    }
+                case (9):{Console.WriteLine("Command 9. TODO"); break;}
 
             }
         }

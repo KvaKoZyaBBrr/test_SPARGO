@@ -37,31 +37,28 @@ namespace Classes.ObjectWorker
         /// </summary>
         public void DeleteOne()
         {
+            int pharmacyCount = Pharmacies.getInstance().getList().Count;
             //получаем список и проверяем на наличие
-            List<Pharmacy> ps = Pharmacies.getInstance().getList();
-            if (ps.Count() == 0)
+            if (pharmacyCount == 0)
             {
                 Console.WriteLine("No Pharmacy to delete");
+                return;
+            }
+            //выводим список инстансов и выбираем нужный
+            Console.WriteLine("Exists Pharmacies:");
+            Pharmacies.getInstance().printList();
+            Console.WriteLine("Choose index removable Pharmacy");
+            string commandString = Console.ReadLine();
+            int target = 0;
+            if (int.TryParse(commandString, out target) && target >= 0 && target < pharmacyCount)
+            {
+                //удяаляем выбранный
+                Pharmacies.getInstance().deleteInstance(target);
+                Console.WriteLine($"Pharmacy #{target} was deleted");
             }
             else
             {
-                //выводим список инстансов и выбираем нужный
-                Console.WriteLine("Exists Pharmacies:");
-                for (int i = 0; i < ps.Count; i++)
-                    Console.WriteLine($"{i}. {ps[i].ToString()}");
-                Console.WriteLine("Choose index removable Pharmacy");
-                string commandString = Console.ReadLine();
-                int target = 0;
-                if (int.TryParse(commandString, out target) && target >= 0 && target < ps.Count)
-                {
-                    //удяаляем выбранный
-                    Pharmacies.getInstance().deleteInstance(target);
-                    Console.WriteLine($"Pharmacy {ps[target].Name} was deleted");
-                }
-                else
-                {
-                    Console.WriteLine("Err to del");
-                }
+                Console.WriteLine("Err to del");
             }
         }
     }

@@ -14,9 +14,8 @@ namespace Classes
     /// -синхронизаторы с с бд по таймеру/циклу/событию
     /// есть DRY по всем спискам. TODO DRY
     /// </summary>
-    class Pharmacies
+    class Pharmacies:BaseList<Pharmacy>
     {
-        List<Pharmacy> pharmacies = new List<Pharmacy>();
         // синглтон, так как не нужно плодить списки
         static Pharmacies instance;
 
@@ -30,31 +29,28 @@ namespace Classes
         {
             if (instance == null)
                 instance = new Pharmacies();
+            updateList();
             return instance;
         }
 
-        public List<Pharmacy> getList()
-        {
-            return pharmacies;
-        }
 
-        public void addNewInstance(Pharmacy pharmacy)
+        public void addNewInstance(Pharmacy newInstance)
         {
-            string query = $"INSERT INTO [dbo].[Pharmacies] ([id],[Name],[Address], [Phone]) VALUES ('{pharmacy.id}', '{pharmacy.Name}', '{pharmacy.Address}', '{pharmacy.Phone}')";
+            string query = $"INSERT INTO [dbo].[Pharmacies] ([id],[Name],[Address], [Phone]) VALUES ('{newInstance.id}', '{newInstance.Name}', '{newInstance.Address}', '{newInstance.Phone}')";
             SQLAdapter.getInstance().command(query);
             updateList();
         }
 
         public void deleteInstance(int index)
         {
-            string query = $"DELETE FROM [dbo].[Pharmacies] WHERE [id] = '{pharmacies[index].id}'";
+            string query = $"DELETE FROM [dbo].[Pharmacies] WHERE [id] = '{list[index].id}'";
             SQLAdapter.getInstance().command(query);
             updateList();
         }
 
-        public void updateList()
+        private static void updateList()
         {
-            pharmacies = SQLAdapter.getInstance().query<Pharmacy>("SELECT * FROM Pharmacies");
+            list = SQLAdapter.getInstance().query<Pharmacy>("SELECT * FROM Pharmacies");
         }
     }
 
