@@ -1,5 +1,6 @@
 ﻿using System;
 using Classes.ObjectWorker;
+using Service;
 
 namespace test
 {
@@ -85,7 +86,11 @@ namespace test
                         batchFactory.DeleteOne();
                         break;
                     }
-                case (9):{Console.WriteLine("Command 9. TODO"); break;}
+                case (9):
+                    {
+                        CustomFunctions.getCountOfProducts(); 
+                        break;
+                    }
 
             }
         }

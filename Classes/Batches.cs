@@ -66,7 +66,7 @@ namespace Classes
         public Guid Storage_id{get;}
         //количество в партии ограничиваем (можно и ulong, но надо писать обработчик ошибки)
         int _count=0;
-        public int Count {get{return _count; } set{_count =  (value<0)? _count = 0:_count;}}
+        public int Count {get{return _count; } set{_count =  (value<0)? _count = 0:_count = value;}}
         
         //конструктор
         public Batch(Guid product_id, Guid storage_id, int count){

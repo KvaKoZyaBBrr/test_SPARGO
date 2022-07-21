@@ -22,6 +22,7 @@ namespace Classes.ObjectWorker
                 return;
             }
             //выводим список инстансов и выбираем нужный
+            //сначала склады
             Console.WriteLine("Choose index of Storage");
             Storages.getInstance().printList();
 
@@ -29,6 +30,7 @@ namespace Classes.ObjectWorker
             int targetStorage = 0;
             if (int.TryParse(commandString, out targetStorage) && targetStorage >= 0 && targetStorage < storagesCount)
             {
+                //если склад выбран, то выбираем товар
                 Console.WriteLine("Choose index of Product");
                 Products.getInstance().printList();
 
@@ -36,6 +38,7 @@ namespace Classes.ObjectWorker
                 int targetProduct = 0;
                 if (int.TryParse(commandString, out targetProduct) && targetProduct >= 0 && targetProduct < productsCount)
                 {
+                    //если все норм, вводим количество и записываемся
                     Console.WriteLine("Enter count");
                     commandString = Console.ReadLine();
                     int count = 0;
